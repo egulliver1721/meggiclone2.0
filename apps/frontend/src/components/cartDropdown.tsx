@@ -1,6 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
+import stripePromise from "../utils/stripe";
 
 export default function CartDropdown(props) {
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
+  // Create Checkout Sessions from body params.
+  const handleCheckout = async () => {
+    setIsCheckoutLoading(true);
+    const stripe = await stripePromise;
+    const response = await fetch('/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cartItems: props.cartItems }),
+    });
+    const session = await response.json();
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    setIsCheckoutLoading(false);
+  };
+
   const itemsInCart = props.cartItems.map((item, index) => {
     return (
       <div className="cartItemContainer" key={index}>
@@ -32,7 +53,7 @@ export default function CartDropdown(props) {
           </div>
         </div>
         <div className="cartItemPrice">
-          ${(item.price * item.quantity).toFixed(2)}
+          {(item.price * item.quantity).toLocaleString('en-AU', {minimumFractionDigits: 2, currency: 'AUD', style: 'currency'})}
         </div>
         <div className="cartItemRemoveContainer">
           <button
@@ -71,6 +92,12 @@ export default function CartDropdown(props) {
         </div>
       ) : (
         <div className="cartEmpty">Your cart is empty</div>
+      )}
+
+      {itemsInCart.length > 0 && (
+        <button className="cartCheckoutBtn" onClick={handleCheckout} disabled={isCheckoutLoading}>
+          {isCheckoutLoading ? 'Loading...' : 'Checkout'}
+        </button>
       )}
     </div>
   );

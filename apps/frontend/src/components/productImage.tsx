@@ -1,8 +1,8 @@
 import React from "react";
-import rainbowTag from "./images/rainbowTag.png";
-import wildAnimalTag from "./images/wildAnimalTag.png";
-import pinkTag from "./images/pinkTag.png";
-import blueTag from "./images/blueTag.png";
+import rainbowTag from "../images/rainbowTag.png";
+import wildAnimalTag from "../images/wildAnimalTag.png";
+import pinkTag from "../images/pinkTag.png";
+import blueTag from "../images/blueTag.png";
 
 export default function ProductImage(props) {
   return (

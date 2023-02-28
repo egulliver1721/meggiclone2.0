@@ -1,6 +1,6 @@
 import React from "react";
-import ProductImage from "./productImage.js";
-import ProductConfiguration from "./productConfiguration.js";
+import ProductImage from "./productImage";
+import ProductConfiguration from "./productConfiguration";
 
 export default function Product(props) {
   const { onPatternClick, handleSubmit, pattern } = props;

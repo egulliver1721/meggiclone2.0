@@ -1,0 +1,35 @@
+# Meggiclone2.0
+
+## Description
+
+This project is a clone of Meggi, built using React and Node.js.
+
+## Installation
+
+To install the project dependencies, you will need to use pnpm. If you don't already have pnpm installed on your machine, you can install it with the following command:
+
+npm install -g pnpm
+
+Once you have pnpm installed, you can install the project dependencies with the following command:
+
+pnpm install
+
+## Usage
+
+To start the project, run the following command:
+
+pnpm start
+
+This will start both the frontend and backend servers concurrently.
+
+## Scripts
+
+- `npm test`: Runs the project tests. Currently, there are no tests specified.
+- `npm start`: Starts the project.
+- `npm run lint`: Runs the linter for both the frontend and backend.
+- `npm run frontend`: Starts the frontend server.
+- `npm run backend`: Starts the backend server.
+
+## License
+
+This project is licensed under the ISC License.
