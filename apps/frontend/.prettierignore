@@ -1,3 +1,8 @@
 node_modules/
 dist/
 .prettierrc.js
+README
+.prettierrc
+.gitignore
+.env
+
