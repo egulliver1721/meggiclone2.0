@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function ProductConfiguration(props) {
   return (
@@ -16,9 +16,7 @@ export default function ProductConfiguration(props) {
               onChange={props.onPatternClick}
             />
             <label htmlFor="rainbow">
-              <span
-                className={props.pattern === "rainbowTag" ? "activeInput" : ""}
-              ></span>
+              <span className={props.pattern === 'rainbowTag' ? 'activeInput' : ''}></span>
             </label>
           </div>
           <div>
@@ -31,11 +29,7 @@ export default function ProductConfiguration(props) {
               onChange={props.onPatternClick}
             />
             <label htmlFor="wildAnimal">
-              <span
-                className={
-                  props.pattern === "wildAnimalTag" ? "activeInput" : ""
-                }
-              ></span>
+              <span className={props.pattern === 'wildAnimalTag' ? 'activeInput' : ''}></span>
             </label>
           </div>
           <div>
@@ -48,9 +42,7 @@ export default function ProductConfiguration(props) {
               onChange={props.onPatternClick}
             />
             <label htmlFor="pink">
-              <span
-                className={props.pattern === "pinkTag" ? "activeInput" : ""}
-              ></span>
+              <span className={props.pattern === 'pinkTag' ? 'activeInput' : ''}></span>
             </label>
           </div>
           <div>
@@ -63,19 +55,13 @@ export default function ProductConfiguration(props) {
               onChange={props.onPatternClick}
             />
             <label htmlFor="blue">
-              <span
-                className={props.pattern === "blueTag" ? "activeInput" : ""}
-              ></span>
+              <span className={props.pattern === 'blueTag' ? 'activeInput' : ''}></span>
             </label>
           </div>
           {/* product pricing */}
           <div className="productPrice">
             <span>$14.00 AUD</span>
-            <button
-              className="cartBtn"
-              type="submit"
-              onSubmit={props.handleSubmit}
-            >
+            <button className="cartBtn" type="submit" onSubmit={props.handleSubmit}>
               Add to cart
             </button>
           </div>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import Navigation from "../components/Navigation";
+import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 
 const Root = () => {
-    const [cartItems, setCartItems] = useState([]);
-    const [tagPattern, setTagPattern] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [tagPattern, setTagPattern] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,28 +42,28 @@ const Root = () => {
       }
     });
     setCartItems(updatedCartItems);
-  }
+  };
 
   const handleRemove = (pattern) => {
     const removeCartItem = cartItems.filter((tag) => tag.pattern !== pattern);
     setCartItems(removeCartItem);
-  }
-    return (
-        <div>
-            <section className="center banner">
+  };
+  return (
+    <div>
+      <section className="center banner">
         <p>Free shipping within Australia</p>
-        </section>
-        <section className="section-width-standard">
-            <Navigation
-            setCartItems={setCartItems}
-            handleDecrement={handleDecrement}
-            handleIncrement={handleIncrement}
-            handleRemove={handleRemove}
-            />
-        </section>
-        <Outlet />
-        </div>
-    );
+      </section>
+      <section className="section-width-standard">
+        <Navigation
+          setCartItems={setCartItems}
+          handleDecrement={handleDecrement}
+          handleIncrement={handleIncrement}
+          handleRemove={handleRemove}
+        />
+      </section>
+      <Outlet />
+    </div>
+  );
 };
 
 export default Root;

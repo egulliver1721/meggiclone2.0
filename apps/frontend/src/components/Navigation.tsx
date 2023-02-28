@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import CartDropdown from "./cartDropdown";
+import React, { useState } from 'react';
+import CartDropdown from './cartDropdown';
 
 export default function Navigation(props) {
   const { cartItems, handleDecrement, handleIncrement, handleRemove } = props;
@@ -17,14 +17,9 @@ export default function Navigation(props) {
         <span className="material-symbols-rounded expand">expand_more</span>
       </h4>
       {cartItems && (
-        <span
-          className="material-symbols-rounded cartIcon"
-          onClick={openCartDropdown}
-        >
+        <span className="material-symbols-rounded cartIcon" onClick={openCartDropdown}>
           shopping_cart
-          {numberOfCartItems > 0 && (
-            <span className="itemsInCart">{numberOfCartItems}</span>
-          )}
+          {numberOfCartItems > 0 && <span className="itemsInCart">{numberOfCartItems}</span>}
         </span>
       )}
       {cartItems && (
