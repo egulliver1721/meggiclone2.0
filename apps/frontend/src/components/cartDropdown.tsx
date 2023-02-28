@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import stripePromise from '../utils/stripe';
 
-export default function CartDropdown(props) {
+export default function CartDropdown(props: any) {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   // Create Checkout Sessions from body params.
