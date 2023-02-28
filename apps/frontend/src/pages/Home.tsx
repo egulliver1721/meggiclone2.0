@@ -44,7 +44,7 @@ const Home = () => {
   const [tagPattern, setTagPattern] = useState();
   const [cartItems, setCartItems] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const exists = cartItems.some((item) => item.pattern === tagPattern);
     if (!exists) {
@@ -55,7 +55,7 @@ const Home = () => {
     }
   };
 
-  const onPatternClick = (e) => {
+  const onPatternClick = (e: any) => {
     e.preventDefault();
     setTagPattern((prevPattern) => e.target.getAttribute('data-image'));
   };
