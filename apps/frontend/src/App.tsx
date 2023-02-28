@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
 import {
-  createBrowserRouter,
   createRoutesFromElements,
-  RouterProvider,
+  createBrowserRouter,
   Route,
-  Link,
 } from 'react-router-dom';
-import Home from './pages/Home';
-import Error from './pages/Error';
-import Checkout from './pages/Checkout';
-import Root from './pages/Root';
+import { Home, Error, Checkout, Root } from './pages';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

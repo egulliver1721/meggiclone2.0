@@ -2,13 +2,10 @@
   "name": "meggiclone2.0",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"pnpm --filter frontend start\" \"pnpm --filter backend start\"",
-    "lint": "pnpm --filter frontend lint && pnpm --filter backend lint",
-    "frontend": "pnpm --filter frontend start",
-    "backend": "pnpm --filter backend start"
+    "lint": "concurrently \"pnpm --filter frontend lint\" \"pnpm --filter backend lint\""
   },
   "keywords": [],
   "author": "",

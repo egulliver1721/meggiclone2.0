@@ -24,11 +24,9 @@ This will start both the frontend and backend servers concurrently.
 
 ## Scripts
 
-- `npm test`: Runs the project tests. Currently, there are no tests specified.
-- `npm start`: Starts the project.
-- `npm run lint`: Runs the linter for both the frontend and backend.
-- `npm run frontend`: Starts the frontend server.
-- `npm run backend`: Starts the backend server.
+- `pnpm test`: Runs the project tests. Currently, there are no tests specified.
+- `pnpm start`: Starts the project.
+- `pnpm lint`: Runs the linter for both the frontend and backend.
 
 ## License
 
