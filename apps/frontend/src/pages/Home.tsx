@@ -60,15 +60,11 @@ const Home = () => {
     setTagPattern((prevPattern) => e.target.getAttribute('data-image'));
   };
   return (
-    <div className='App'>
-      <div className='heroContainer'>
+    <div className="App">
+      <div className="heroContainer">
         <Header heroImage={heroImage} />
       </div>
-      <Product
-        onPatternClick={onPatternClick}
-        handleSubmit={handleSubmit}
-        pattern={tagPattern}
-      />
+      <Product onPatternClick={onPatternClick} handleSubmit={handleSubmit} pattern={tagPattern} />
     </div>
   );
 };

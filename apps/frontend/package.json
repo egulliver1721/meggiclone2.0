@@ -18,9 +18,15 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitejs/plugin-react-swc": "^3.2.0",
+    "concurrently": "^7.6.0",
     "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
     "jotai": "^2.0.2",
     "prettier": "^2.8.4",
     "react-router-dom": "^6.8.2",
@@ -33,14 +39,10 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "test": "jest",
-    "preview": "vite preview"
+    "lint": "concurrently \"eslint --ext .js,.jsx,.ts,.tsx .\" \"prettier --check .\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "pnpm": {
+    "recursiveInstall": true
   },
   "browserslist": {
     "production": [

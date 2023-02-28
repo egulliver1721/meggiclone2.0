@@ -213,12 +213,7 @@ html {
   background-repeat: no-repeat;
   /* background-attachment: fixed; */
   background-position: center top;
-  background-image: linear-gradient(
-      to bottom,
-      rgba(137, 67, 91, 0.3),
-      rgba(28, 27, 30, 0.2)
-    ),
-    var(--img);
+  background-image: linear-gradient(to bottom, rgba(137, 67, 91, 0.3), rgba(28, 27, 30, 0.2)), var(--img);
   background-size: cover;
 }
 
