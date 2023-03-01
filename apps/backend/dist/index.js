@@ -6,10 +6,51 @@ const _express = /*#__PURE__*/ _interopRequireDefault(require("express"));
 const _stripe = require("stripe");
 const _dotenv = /*#__PURE__*/ _interopRequireDefault(require("dotenv"));
 const _cors = /*#__PURE__*/ _interopRequireDefault(require("cors"));
+const _express1 = /*#__PURE__*/ _interopRequireWildcard(require("@trpc/server/adapters/express"));
+const _trpc = require("./trpc");
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
+}
+function _getRequireWildcardCache(nodeInterop) {
+    if (typeof WeakMap !== "function") return null;
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+    return (_getRequireWildcardCache = function(nodeInterop) {
+        return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
+}
+function _interopRequireWildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) {
+        return obj;
+    }
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") {
+        return {
+            default: obj
+        };
+    }
+    var cache = _getRequireWildcardCache(nodeInterop);
+    if (cache && cache.has(obj)) {
+        return cache.get(obj);
+    }
+    var newObj = {};
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for(var key in obj){
+        if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+            var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+            if (desc && (desc.get || desc.set)) {
+                Object.defineProperty(newObj, key, desc);
+            } else {
+                newObj[key] = obj[key];
+            }
+        }
+    }
+    newObj.default = obj;
+    if (cache) {
+        cache.set(obj, newObj);
+    }
+    return newObj;
 }
 _dotenv.default.config();
 // Create a new express app instance
@@ -22,7 +63,8 @@ const stripe = new _stripe.Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_4eC3
 });
 // Allow cross-origin requests from localhost:5173
 app.use((0, _cors.default)({
-    origin: 'http://localhost:5173'
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 // Parse JSON request bodies
 app.use(_express.default.json());
@@ -64,6 +106,12 @@ app.post('/create-checkout-session', async (req, res)=>{
         });
     }
 });
+// trpc middleware
+app.use('/api/trpc', _express1.createExpressMiddleware({
+    router: _trpc.appRouter,
+    createContext: _trpc.createContext
+}));
+// start app
 app.listen(port, ()=>{
-    console.log(`backend listening at http://localhost:${port}`);
+    console.log(`🚀 Server listening on port http://localhost:${process.env.PORT}`);
 });

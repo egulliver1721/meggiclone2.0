@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import style from './navbar.module.scss';
 import gsap from 'gsap';
-import { FiShoppingBag, FiUser } from 'react-icons/fi';
+import { FiHeart, FiMenu, FiShoppingBag, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Cart from '../../components/cart';
 
@@ -41,7 +41,7 @@ const Navbar = () => {
       <div className={style.container}>
         <div className={style.containerleft}>
           <span onClick={toggleMenu} className={style.menuIcon}>
-            Menu
+            <FiMenu />
           </span>
         </div>
         <div className={style.containercenter}>
@@ -50,6 +50,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className={style.containerright}>
+          <FiHeart />
           <FiShoppingBag onClick={toggleCart} />
           <FiUser />
         </div>
