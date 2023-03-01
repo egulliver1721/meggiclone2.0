@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from 'express';
 import { Stripe } from "stripe";
 import dotenv from 'dotenv';
 import cors from 'cors';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { appRouter, createContext } from './trpc'
 
 dotenv.config();
 
@@ -15,7 +17,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_4eC39HqLyjWD
 });
 
 // Allow cross-origin requests from localhost:5173
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 // Parse JSON request bodies
 app.use(express.json()); 
 
@@ -53,6 +55,16 @@ app.post('/create-checkout-session', async (req: Request, res: Response) => {
   }
 });
 
+// trpc middleware
+app.use(
+  '/api/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+)
+
+// start app
 app.listen(port, () => {
-  console.log(`backend listening at http://localhost:${port}`);
+  console.log(`🚀 Server listening on port http://localhost:${process.env.PORT}`);
 });

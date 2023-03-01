@@ -5,7 +5,8 @@
   "type": "module",
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "backend": "1.0.0"
   },
   "devDependencies": {
     "@stripe/react-stripe-js": "^1.16.5",

@@ -4,6 +4,18 @@
     font-size: 12px;
     font-weight: bold;
     text-align: center;
-    padding: 1px 0;   
+    padding: 0.5rem 1rem;   
     z-index: 1000;
+    margin: 0;
+
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    p {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 200;
+    }
   }

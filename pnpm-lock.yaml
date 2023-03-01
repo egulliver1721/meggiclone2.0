@@ -14,6 +14,7 @@ importers:
 
   apps/backend:
     specifiers:
+      '@prisma/client': ^4.11.0
       '@swc/cli': ^0.1.62
       '@swc/core': ^1.3.37
       '@trpc/server': ^10.13.2
@@ -44,6 +45,7 @@ importers:
       '@types/node': 18.14.2
       express: 4.18.2
     devDependencies:
+      '@prisma/client': 4.11.0_prisma@4.11.0
       '@swc/cli': 0.1.62_hr5pyftcmahnuj5okfw7pzvm4u
       '@swc/core': 1.3.37
       '@types/cors': 2.8.13
@@ -90,6 +92,7 @@ importers:
       '@vitejs/plugin-react-swc': ^3.2.0
       animejs: ^3.2.1
       axios: ^1.3.4
+      backend: 1.0.0
       concurrently: ^7.6.0
       eslint: ^8.35.0
       eslint-config-prettier: ^8.6.0
@@ -108,6 +111,7 @@ importers:
       web-vitals: ^2.1.4
       zod: ^3.20.6
     dependencies:
+      backend: link:../backend
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -885,6 +889,24 @@ packages:
     dependencies:
       node-addon-api: 3.2.1
       node-gyp-build: 4.6.0
+    dev: true
+
+  /@prisma/client/4.11.0_prisma@4.11.0:
+    resolution: {integrity: sha512-0INHYkQIqgAjrt7NzhYpeDQi8x3Nvylc2uDngKyFDDj1tTRQ4uV1HnVmd1sQEraeVAN63SOK0dgCKQHlvjL0KA==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.11.0-57.8fde8fef4033376662cad983758335009d522acb
+      prisma: 4.11.0
+    dev: true
+
+  /@prisma/engines-version/4.11.0-57.8fde8fef4033376662cad983758335009d522acb:
+    resolution: {integrity: sha512-3Vd8Qq06d5xD8Ch5WauWcUUrsVPdMC6Ge8ILji8RFfyhUpqon6qSyGM0apvr1O8n8qH8cKkEFqRPsYjuz5r83g==}
     dev: true
 
   /@prisma/engines/4.11.0:
