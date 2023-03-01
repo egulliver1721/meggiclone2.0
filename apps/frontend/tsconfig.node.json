@@ -1,5 +1,4 @@
 {
-  "input": "vite.config.ts",
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
