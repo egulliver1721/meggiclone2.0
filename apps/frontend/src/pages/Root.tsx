@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navigation from '../components/Navigation';
+import Banner from '../components/banner';
+import Navbar from '../components/navbar';
 
 const Root = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -49,20 +51,18 @@ const Root = () => {
     setCartItems(removeCartItem);
   };
   return (
-    <div>
-      <section className="center banner">
-        <p>Free shipping within Australia</p>
+    <>
+      <section>
+        <Banner text="Free Shipping Across Australia" />
+        <Navbar />
       </section>
-      <section className="section-width-standard">
-        <Navigation
-          setCartItems={setCartItems}
-          handleDecrement={handleDecrement}
-          handleIncrement={handleIncrement}
-          handleRemove={handleRemove}
-        />
+      <section>
+        <Outlet />
       </section>
-      <Outlet />
-    </div>
+      <footer>
+        <h1> Footer </h1>
+      </footer>
+    </>
   );
 };
 

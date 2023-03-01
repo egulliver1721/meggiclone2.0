@@ -8,6 +8,7 @@ import rainbowThumbnail from '../images/rainbowThumbnail.png';
 import blueThumbnail from '../images/blueThumbnail.png';
 import pinkThumbnail from '../images/pinkThumbnail.png';
 import wildAnimalThumbnail from '../images/wildAnimalThumbnail.png';
+import Hero from '../components/hero';
 
 const tagData = [
   {
@@ -61,10 +62,11 @@ const Home = () => {
   };
   return (
     <div className="App">
-      <div className="heroContainer">
-        <Header heroImage={heroImage} />
-      </div>
+      <Hero />
+      {/* <Header heroImage={heroImage} /> 
+      <div className="heroContainer"><Header heroImage={heroImage} /></div>
       <Product onPatternClick={onPatternClick} handleSubmit={handleSubmit} pattern={tagPattern} />
+      */}
     </div>
   );
 };
