@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"pnpm --filter frontend start\" \"pnpm --filter backend start\"",
+    "start": "concurrently \"pnpm --filter frontend start\" \"pnpm --filter backend dev\"",
     "lint": "concurrently \"pnpm --filter frontend lint\""
   },
   "keywords": [],
