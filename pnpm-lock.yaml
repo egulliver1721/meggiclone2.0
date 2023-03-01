@@ -23,6 +23,7 @@ importers:
       '@typescript-eslint/eslint-plugin': ^5.0.0
       '@typescript-eslint/parser': ^5.54.0
       chokidar: ^3.5.3
+      concurrently: ^7.6.0
       cors: ^2.8.5
       dotenv: ^16.0.3
       eslint: ^8.35.0
@@ -50,6 +51,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
       '@typescript-eslint/parser': 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
       chokidar: 3.5.3
+      concurrently: 7.6.0
       cors: 2.8.5
       dotenv: 16.0.3
       eslint: 8.35.0
