@@ -12,7 +12,7 @@ const newsletterRouter = router({
     .mutation(async ({ input, ctx }) => {
       return await ctx.prisma.subscribe.create({
         data: {
-          email: input. email,
+          email: input.email,
         },
       });
     }),
