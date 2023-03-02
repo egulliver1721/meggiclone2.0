@@ -2,17 +2,15 @@
   "name": "meggiclone2.0",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"pnpm --filter frontend start\" \"pnpm --filter backend dev\"",
-    "lint": "concurrently \"pnpm --filter frontend lint\""
+    "dev": "turbo dev",
+    "build": "turbo build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^7.6.0",
-    "nx": "15.8.1",
-    "@nrwl/nx-cloud": "latest"
+    "turbo": "^1.8.3"
   }
 }

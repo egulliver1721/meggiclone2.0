@@ -1,0 +1,71 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "server": "workspace:1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "@stripe/react-stripe-js": "^1.16.5",
+    "@stripe/stripe-js": "^1.47.0",
+    "@swc/core": "^1.3.37",
+    "@swc/jest": "^0.2.24",
+    "@tanstack/react-query": "^4.24.10",
+    "@testing-library/dom": "^9.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@trpc/client": "^10.13.2",
+    "@trpc/react-query": "^10.13.2",
+    "@trpc/server": "^10.13.2",
+    "@types/animejs": "^3.1.7",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react-swc": "^3.2.0",
+    "animejs": "^3.2.1",
+    "axios": "^1.3.4",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "gsap": "^3.11.4",
+    "jotai": "^2.0.2",
+    "prettier": "^2.8.4",
+    "react-icons": "^4.7.1",
+    "react-router-dom": "^6.8.2",
+    "sass": "^1.58.3",
+    "typescript": "^4.4.4",
+    "vite": "^4.1.4",
+    "web-vitals": "^2.1.4",
+    "zod": "^3.20.6"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "concurrently \"eslint --ext .js,.jsx,.ts,.tsx .\" \"prettier --check .\""
+  },
+  "pnpm": {
+    "recursiveInstall": true
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
