@@ -1,10 +1,10 @@
 import { inferAsyncReturnType, initTRPC } from '@trpc/server';
 import * as trpcExpress from '@trpc/server/adapters/express'; 
-import { PrismaClient } from '.prisma/client'
+import { PrismaClient } from 'database'
 import {
     newsletterRouter, 
 } from './routes';
-
+ 
 const prisma = new PrismaClient();
 
 export const createContext = ({
@@ -25,7 +25,7 @@ export const middleware = t.router;
 export const publicProcedure = t.procedure; 
 
 export const appRouter = router({
-    user: newsletterRouter,
+    newsletter: newsletterRouter,
 });
 
 // Export type router type signature,
