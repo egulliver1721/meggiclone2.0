@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { atom, useAtom } from 'jotai';
 import axios from 'axios';
 import stripePromise from '../../utils/stripe';
@@ -25,6 +25,7 @@ const Cart = (): JSX.Element => {
     });
   };
 
+  // checkout handler for stripe
   const handleCheckout = async () => {
     setIsCheckoutLoading(true);
     const stripe = await stripePromise;
@@ -33,6 +34,7 @@ const Cart = (): JSX.Element => {
       setIsCheckoutLoading(false);
       return;
     }
+    // to do learn axios
     const response = await axios.post('/create-checkout-session', {
       cartItems: itemsInCart,
     });
