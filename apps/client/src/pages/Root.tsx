@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import Navigation from '../components/Navigation';
+import { useState, useEffect } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import Banner from '../components/banner';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
+import style from './root.module.scss';
 
 const Root = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -51,18 +52,16 @@ const Root = () => {
     setCartItems(removeCartItem);
   };
   return (
-    <>
+    <div className={style.root}>
       <section>
         <Banner text="Free Shipping Across Australia" />
         <Navbar />
       </section>
-      <section>
+      <section className={style.container}>
         <Outlet />
       </section>
-      <footer>
-        <h1> Footer </h1>
-      </footer>
-    </>
+      <Footer />
+    </div>
   );
 };
 

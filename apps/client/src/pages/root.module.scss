@@ -1,0 +1,9 @@
+.root {
+    width: 100vw;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 2rem;
+    }
+}

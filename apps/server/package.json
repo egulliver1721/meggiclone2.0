@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"swc src -w --out-dir dist\" \"nodemon --watch \"dist/**/*\" -e js ./dist/index.js\"",
+    "dev": "concurrently \"swc src -w --out-dir dist\" \"nodemon --watch \"dist/**/*\" -e js ./dist/main.js\"",
     "build": "swc src -d dist",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production node dist/main.js",
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {
