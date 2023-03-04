@@ -53,10 +53,10 @@ const Root = () => {
   };
   return (
     <div className={style.root}>
-      <section>
+      <header>
         <Banner text="Free Shipping Across Australia" />
         <Navbar />
-      </section>
+      </header>
       <section className={style.container}>
         <Outlet />
       </section>
