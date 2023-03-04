@@ -1,20 +1,60 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import style from './navbar.module.scss';
 import gsap from 'gsap';
-import { FiHeart, FiMenu, FiShoppingBag, FiUser } from 'react-icons/fi';
+import { FiHeart, FiMenu, FiMoon, FiShoppingBag, FiSun, FiUser } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Cart from '../cart';
+import { atom, useAtom } from 'jotai';
+
+const themeAtom = atom('light');
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [openUser, setOpenUser] = useState(false);
+  const [openWishlist, setOpenWishlist] = useState(false);
+  // jotai use atom
+  const [theme, setTheme] = useAtom(themeAtom);
+  console.log(theme);
+
+  const handleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
 
   const menuRef = useRef(null);
   const itemsRef = useRef(null);
+  const cartRef = useRef(null);
+
+  const toggleUser = () => {
+    setOpenUser(!openUser);
+  };
+
+  const toggleWishlist = () => {
+    setOpenWishlist(!openWishlist);
+  };
 
   const toggleCart = () => {
     setOpenCart(!openCart);
   };
+
+  useEffect(() => {
+    if (openMenu) {
+      const handleOutsideClick = (e: MouseEvent) => {
+        if (cartRef.current && !cartRef.current.contains(e.target as Node)) {
+          console.log('clicked outside');
+          toggleMenu();
+        }
+      };
+      document.addEventListener('click', handleOutsideClick);
+      return () => {
+        document.removeEventListener('click', handleOutsideClick);
+      };
+    }
+  }, [openMenu]);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -50,9 +90,13 @@ const Navbar = () => {
           </a>
         </div>
         <div className={style.containerright}>
-          <FiHeart />
+          <FiHeart onClick={toggleWishlist} />
           <FiShoppingBag onClick={toggleCart} />
-          <FiUser />
+          {
+            // ternary operator
+            theme === 'light' ? <FiMoon onClick={handleTheme} /> : <FiSun onClick={handleTheme} />
+          }
+          <FiUser onClick={toggleUser} />
         </div>
       </div>
       {/* Full-screen menu */}
@@ -74,6 +118,9 @@ const Navbar = () => {
       </div>
       {/* Cart */}
       {openCart && <Cart />}
+
+      {/* <Wishlist /> */}
+      {openWishlist && <Wishlist />}
     </nav>
   );
 };
