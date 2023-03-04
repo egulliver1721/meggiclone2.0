@@ -2,11 +2,19 @@
   "name": "meggiclone2.0",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">=12.0.0",
+    "pnpm": ">=5.0.0"
+  },
   "private": true,
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build"
   },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -2,8 +2,34 @@ import express, { Application, Request, Response } from 'express';
 import { Stripe } from "stripe";
 import dotenv from 'dotenv';
 import cors from 'cors';
-import * as trpcExpress from '@trpc/server/adapters/express';
-import { appRouter, createContext } from './trpc'
+import { initTRPC, inferAsyncReturnType } from '@trpc/server';
+import { z } from 'zod';
+import { PrismaClient } from '../node_modules/.prisma/client'
+
+const prisma = new PrismaClient();
+
+export const t = initTRPC.create();
+
+const router = t.router;
+const publicProcedure = t.procedure;
+ 
+export const appRouter = t.router({
+  getUser: t.procedure.input(z.string()).query((req) => {
+    req.input; // string
+    return { id: req.input, name: 'Bilbo' };
+  }),
+  createUser: t.procedure
+    .input(z.object({ name: z.string().min(5) }))
+    .mutation(async (req) => {
+      // prisma 
+      return await prisma.user.create({
+      });
+    }),
+});
+
+// Export type router type signature,
+// NOT the router itself.
+export type AppRouter = typeof appRouter;
 
 dotenv.config();
 
@@ -54,15 +80,6 @@ app.post('/create-checkout-session', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Failed to create checkout session' });
   }
 });
-
-// trpc middleware
-app.use(
-  '/api/trpc',
-  trpcExpress.createExpressMiddleware({
-    router: appRouter,
-    createContext,
-  })
-)
 
 // start app
 app.listen(port, () => {

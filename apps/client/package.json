@@ -7,7 +7,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "server": "workspace:*"
+    "server":  "workspace:*"
   },
   "devDependencies": {
     "@stripe/react-stripe-js": "^1.16.5",
@@ -54,9 +54,6 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "concurrently \"eslint --ext .js,.jsx,.ts,.tsx .\" \"prettier --check .\""
-  },
-  "pnpm": {
-    "recursiveInstall": true
   },
   "browserslist": {
     "production": [
