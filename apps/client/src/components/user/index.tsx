@@ -9,6 +9,7 @@ const User = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   console.log(loggedIn);
 
@@ -18,6 +19,7 @@ const User = () => {
       setLoggedIn(true);
     } catch (error) {
       console.error(error);
+      setErrorMessage('Login failed. Please try again.');
     }
   };
 
@@ -40,6 +42,7 @@ const User = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={handleLogin}>Login</button>
+            {errorMessage && <p>{errorMessage}</p>}
           </>
         )}
       </div>

@@ -7,14 +7,14 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc';
 import { PrismaClient } from '../node_modules/.prisma/client';
 import authRouter from './routes/auth';
+import signupRouter from './routes/signup';
 
 // =========================== Main function =========================== //
+  // =========================== Express app =========================== //
+
+export const app: Application = express();
 
 async function main() {
-
-  // =========================== Express app =========================== //
-  const app: Application = express();
-
   // =========================== Middlewares =========================== //
   // =========================== CORS =============================== //
   app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
@@ -38,6 +38,7 @@ async function main() {
   });
 
   app.use('/auth', authRouter);
+  app.use('/signup', signupRouter);
 
   // =========================== Config =========================== //
 

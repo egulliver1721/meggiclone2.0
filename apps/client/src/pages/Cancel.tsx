@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 const Cancel = () => {
   return (
     <div>
