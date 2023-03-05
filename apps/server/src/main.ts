@@ -6,6 +6,7 @@ import cors from 'cors';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc';
 import { PrismaClient } from '../node_modules/.prisma/client';
+import authRouter from './routes/auth';
 
 // =========================== Main function =========================== //
 
@@ -35,6 +36,8 @@ async function main() {
   app.get('/', (req: Request, res: Response) => {
   res.send('Hello from backend');
   });
+
+  app.use('/auth', authRouter);
 
   // =========================== Config =========================== //
 
