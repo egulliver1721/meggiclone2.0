@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Banner from '../components/banner';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
@@ -51,6 +51,7 @@ const Root = () => {
     const removeCartItem = cartItems.filter((tag) => tag.pattern !== pattern);
     setCartItems(removeCartItem);
   };
+
   return (
     <div className={style.root}>
       <header>
