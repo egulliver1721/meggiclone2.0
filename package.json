@@ -11,10 +11,6 @@
     "dev": "turbo dev",
     "build": "turbo build"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
