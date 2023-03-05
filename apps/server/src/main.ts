@@ -256,6 +256,34 @@ async function main() {
 
   });
 
+  // =========================== Routes =========================== //
+  app.get('/wishlist', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Get user from request object
+      const user = req.user as any;
+  
+      // Find user's wishlist in database
+      const wishlist = await prisma.wishlist.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          items: true,
+        },
+      });
+  
+      if (!wishlist) {
+        return res.status(404).json({ message: 'Wishlist not found' });
+      }
+  
+      // Send response with wishlist data
+      res.status(200).json({ wishlist });
+    } catch (error) {
+      // Call next with error object to pass to error handling middleware
+      next(error);
+    }
+  });
+
   // =========================== Error handler =========================== //
   app.use((err: Error, req: Request, res: Response, _next: any) => {
     console.error(err);
