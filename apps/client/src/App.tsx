@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import { createRoutesFromElements, createBrowserRouter, Route } from 'react-router-dom';
-import { Home, Error, Checkout, Root, Contact, Terms, Privacy } from './pages';
+import { Home, Error, Checkout, Root, Contact, Terms, Privacy, About } from './pages';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -11,6 +11,7 @@ const router = createBrowserRouter(
       <Route path="Contact" element={<Contact />} />
       <Route path="Terms" element={<Terms />} />
       <Route path="Privacy" element={<Privacy />} />
+      <Route path="About" element={<About />} />
     </Route>,
   ),
 );

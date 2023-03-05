@@ -5,6 +5,7 @@ import { FiHeart, FiMenu, FiMoon, FiShoppingBag, FiSun, FiUser } from 'react-ico
 import { Link } from 'react-router-dom';
 import Cart from '../cart';
 import { atom, useAtom } from 'jotai';
+import User from '../user';
 
 const themeAtom = atom('light');
 
@@ -25,9 +26,10 @@ const Navbar = () => {
     }
   };
 
-  const menuRef = useRef(null);
-  const itemsRef = useRef(null);
-  const cartRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const itemsRef = useRef<HTMLDivElement>(null);
+  const cartRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
 
   const toggleUser = () => {
     setOpenUser(!openUser);
@@ -41,21 +43,6 @@ const Navbar = () => {
     setOpenCart(!openCart);
   };
 
-  useEffect(() => {
-    if (openMenu) {
-      const handleOutsideClick = (e: MouseEvent) => {
-        if (cartRef.current && !cartRef.current.contains(e.target as Node)) {
-          console.log('clicked outside');
-          toggleMenu();
-        }
-      };
-      document.addEventListener('click', handleOutsideClick);
-      return () => {
-        document.removeEventListener('click', handleOutsideClick);
-      };
-    }
-  }, [openMenu]);
-
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
 
@@ -66,6 +53,36 @@ const Navbar = () => {
       tl.to(itemsRef.current, { duration: 0.5, y: 0, scale: 1 });
     }
   };
+
+  // if click outside of menu, close menu
+  useEffect(() => {
+    const handleClickOutside = (e: any) => {
+      console.log('Clicked outside of cart component');
+
+      if (cartRef.current && !cartRef.current.contains(e.target)) {
+        setOpenCart(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [cartRef]);
+
+  // if click outside of menu, close menu
+  useEffect(() => {
+    const handleClickOutside = (e: any) => {
+      console.log('Clicked outside of user component');
+
+      if (userRef.current && !userRef.current.contains(e.target)) {
+        setOpenUser(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [userRef]);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const tl = gsap.timeline();
@@ -117,10 +134,13 @@ const Navbar = () => {
         </div>
       </div>
       {/* Cart */}
-      {openCart && <Cart />}
+      <div ref={cartRef}>{openCart && <Cart />}</div>
 
       {/* <Wishlist /> */}
       {openWishlist && <Wishlist />}
+
+      {/* <User /> */}
+      <div ref={userRef}>{openUser && <User />}</div>
     </nav>
   );
 };

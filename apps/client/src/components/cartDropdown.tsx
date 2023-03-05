@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import stripePromise from '../utils/stripe';
 
 export default function CartDropdown(props) {
