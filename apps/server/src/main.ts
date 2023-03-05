@@ -44,9 +44,6 @@ async function main() {
     })
   );
   
-  app.use(passport.initialize());
-  app.use(passport.session());
-  
   // =========================== CORS =============================== //
   app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
   // =========================== Body parser ======================= //
@@ -84,30 +81,33 @@ async function main() {
           });
 
           if (!user) {
-            return done(null, false, { message: 'Incorrect email' });
+            return done(null, false);
           }
 
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+          const isMatch = await bcrypt.compare(password, user.password);
 
-          if (!passwordsMatch) {
-            return done(null, false, { message: 'Incorrect password' });
+          if (!isMatch) {
+            return done(null, false);
           }
 
           return done(null, user);
         } catch (error) {
-          return done(error);
+          return done(error, false);
         }
       },
     ),
   );
 
   // =========================== JWT strategy =========================== //
+  // Initialize JWT options
+  const jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWT_SECRET || '',
+  };
+
   passport.use(
     new JwtStrategy(
-      {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.JWT_SECRET, // Updated with the environment variable
-      },
+      jwtOptions,
       async (payload, done) => {
         try {
           const user = await prisma.user.findUnique({
@@ -128,6 +128,9 @@ async function main() {
     ),
   );
 
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   // =========================== Passport serialize =========================== //
 
   passport.serializeUser((user: any, done: any) => {
@@ -137,7 +140,7 @@ async function main() {
   });
   
   // =========================== Passport deserialize =========================== //
-  passport.deserializeUser(async (id: any, callback) => {
+  passport.deserializeUser(async (id: any, done: any) => {
     try {
       const user = await prisma.user.findUnique({
         where: {
@@ -145,14 +148,19 @@ async function main() {
         },
       });
   
-      callback(null, user);
+      if (!user) {
+        return done(null, false);
+      }
+  
+      done(null, user);
     } catch (error) {
-      callback(error, null);
+      done(error, null);
     }
   });
   
 
   // =========================== Auth =========================== //
+
   // =========================== Generate JWT token =========================== //
   async function generateJwtToken(user: any) {
     console.log('Generating JWT token for user:', user);
@@ -166,21 +174,36 @@ async function main() {
     );
     console.log('Generated JWT token:', token);
     return token;
-  }
+    }  
+
+  // =========================== Login =========================== //
+
+  const requireAuth = passport.authenticate('jwt', { session: false });
 
   app.post('/login', (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('local', (err: Error, user: any, info: any) => {
+    passport.authenticate('local', { session: false }, (err: any, user: { id: any; email: any; }, info: { message: any; }) => {
       if (err) {
         console.error('Error during authentication:', err);
         return res.status(500).json({ message: 'Internal server error' });
       }
+  
       if (!user) {
         console.error('Invalid credentials:', info.message);
         return res.status(401).json({ message: 'Invalid credentials' });
       }
-      console.log('User logged in:', user);
-      const token = generateJwtToken(req.user);
-      return res.status(200).json({ token });
+  
+      // Generate JWT token
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+        },
+        jwtOptions.secretOrKey,
+        { expiresIn: '1d' },
+      );
+
+      // Send success response with JWT token
+      res.status(200).json({ token });
     })(req, res, next);
   });
   
@@ -211,18 +234,26 @@ async function main() {
     }
   });
 
-  // =========================== Logout =========================== //
-  app.get('/logout', (req, res) => {
-    req.logout((err) => {
-      if (err) {
-        // handle error
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
-      } else {
-        res.clearCookie('connect.sid');
-        res.status(200).json({ message: 'You have been logged out successfully' });
+
+  app.get('/profile', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    // Get user from request object
+    const user = req.user as any;
+    // Find user in database by ID
+    const userProfile = await prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+    });} catch (error) {
+      // Call next with error object to pass to error handling middleware
+      next(error);
       }
-    });
+      });
+
+
+  // =========================== Logout =========================== //
+  app.get('/logout', (req: Request, res: Response) => {
+
   });
 
   // =========================== Error handler =========================== //

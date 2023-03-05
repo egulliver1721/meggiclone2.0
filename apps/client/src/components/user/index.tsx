@@ -1,6 +1,6 @@
 import { atom, useAtom } from 'jotai';
 import style from './user.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +13,13 @@ const User = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   console.log(loggedIn);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLoggedIn(true);
+    }
+  }, [setLoggedIn]);
 
   const handleLogin = async () => {
     try {
@@ -29,10 +36,17 @@ const User = () => {
     }
   };
 
-  const handleLogout = () => {
-    // Perform logout logic...
-    localStorage.removeItem('token');
-    setLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      const baseURL = 'http://localhost:8000';
+      await axios.post(`${baseURL}/logout`, {}, { withCredentials: true });
+      localStorage.removeItem('token');
+      setLoggedIn(false);
+      console.log('Logout successful');
+    } catch (error) {
+      console.error(error);
+      console.log('Logout failed');
+    }
   };
 
   return (
