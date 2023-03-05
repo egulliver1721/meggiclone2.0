@@ -14,7 +14,8 @@ datasource db {
 // Define the User model
 model User {
   id         Int          @id @default(autoincrement())
-  name       String
+  firstName  String
+  lastName   String
   email      String       @unique
   password   String
   address    String?
