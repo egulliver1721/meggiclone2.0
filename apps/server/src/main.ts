@@ -460,6 +460,57 @@ async function main() {
     }
   });
 
+  // payment handler for apple pay 
+  app.post('/payment', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { paymentData } = req.body;
+
+      // Get user from request object
+      const user = req.user as any;
+
+      // Find user's cart in database
+      const cart = await prisma.cart.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          items: true,
+        },
+      });
+
+      if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
+      }
+
+      // Create order
+      const order = await prisma.order.create({
+        data: {
+          userId: user.id,
+          items: {
+            create: cart.items.map((item) => ({
+              productId: item.productId,
+              quantity: item.quantity,
+            })),
+          },
+        },
+      });
+
+      // Delete cart items
+      await prisma.cartItem.deleteMany({
+        where: {
+          cartId: user.id,
+        },
+      });
+
+      // Send response with order data
+      res.status(200).json({ order });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // =========================== Stripe =========================== //
+
   // =========================== Error handler =========================== //
   app.use((err: Error, req: Request, res: Response, _next: any) => {
     console.error(err);
