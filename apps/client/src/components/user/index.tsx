@@ -36,17 +36,23 @@ const User = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      const baseURL = 'http://localhost:8000';
-      await axios.post(`${baseURL}/logout`, {}, { withCredentials: true });
-      localStorage.removeItem('token');
-      setLoggedIn(false);
-      console.log('Logout successful');
-    } catch (error) {
-      console.error(error);
-      console.log('Logout failed');
-    }
+  // api interceptor
+  axios.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
   };
 
   return (
