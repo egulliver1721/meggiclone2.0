@@ -289,6 +289,177 @@ async function main() {
     }
   });
 
+  // products 
+  app.get('/products', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Find all products in database
+      const products = await prisma.product.findMany();
+      
+      // Send response with products data
+      res.status(200).json(products);
+    } catch (error) {
+      // Call next with error object to pass to error handling middleware
+      next(error);
+    }
+  });
+
+  // cart 
+  app.get('/cart', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Get user from request object
+      const user = req.user as any;
+
+      // Find user's cart in database
+      const cart = await prisma.cart.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          items: true,
+        },
+      });
+
+      if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
+      }
+
+      // Send response with cart data
+      res.status(200).json({ cart });
+    } catch (error) {
+      // Call next with error object to pass to error handling middleware
+      next(error);
+    }
+  });
+
+  // order history 
+  app.get('/order-history', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Get user from request object
+      const user = req.user as any;
+      
+      // Find user's order history in database
+      const orderHistory = await prisma.order.findMany({
+        where: {
+          userId: user.id,
+        },
+        include: {
+          items: true,
+        },
+      });
+
+      if (!orderHistory) {
+        return res.status(404).json({ message: 'Order history not found' });
+      }
+
+      // Send response with order history data
+      res.status(200).json({ orderHistory });
+    } catch (error) {
+      
+      // Call next with error object to pass to error handling middleware
+      next(error);
+    }
+  });
+
+  // user information
+  // Update user information
+  app.put('/user/:userId', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+      const { firstName, lastName, shippingAddress, mobileNumber } = req.body;
+      
+      const updatedUser = await prisma.user.update({
+        where: {
+          id: Number(userId),
+        },
+        data: {
+          firstName,
+          lastName,
+        },
+      });
+
+      res.status(200).json({ message: 'User information updated successfully', user: updatedUser });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // Delete user account
+  app.delete('/user/:userId', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+
+      const deletedUser = await prisma.user.delete({
+        where: {
+          id: Number(userId),
+        },
+      });
+
+      res.status(200).json({ message: 'User account deleted successfully', user: deletedUser });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // get user information
+  app.get('/user/:userId', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.params;
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: Number(userId),
+        },
+      });
+
+      res.status(200).json({ user });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  // add item to wishlist
+  app.post('/wishlist/:productId', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { productId } = req.params;
+
+      // Get user from request object
+      const user = req.user as any;
+
+      // Find user's wishlist in database
+      const wishlist = await prisma.wishlist.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          items: true,
+        },
+      });
+
+      if (!wishlist) {
+        return res.status(404).json({ message: 'Wishlist not found' });
+      }
+
+      // Check if item is already in wishlist
+      const itemExists = wishlist.items.find((item) => item.productId === Number(productId));
+
+      if (itemExists) {
+        return res.status(400).json({ message: 'Item already in wishlist' });
+      }
+
+      // Add item to wishlist
+      const newItem = await prisma.wishlistItem.create({
+        data: {
+          productId: Number(productId),
+          wishlistId: user.id,
+        },
+      });
+
+      res.status(200).json({ message: 'Item added to wishlist', item: newItem });
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // =========================== Error handler =========================== //
   app.use((err: Error, req: Request, res: Response, _next: any) => {
     console.error(err);
