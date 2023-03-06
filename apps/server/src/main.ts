@@ -248,12 +248,17 @@ async function main() {
       // Call next with error object to pass to error handling middleware
       next(error);
       }
-      });
+    });
 
 
   // =========================== Logout =========================== //
-  app.get('/logout', (req: Request, res: Response) => {
-
+  app.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+      // delete cookie
+      res.clearCookie('token');
+    });
   });
 
   // =========================== Routes =========================== //
