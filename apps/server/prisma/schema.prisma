@@ -13,19 +13,19 @@ datasource db {
 
 // Define the User model
 model User {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   firstName   String
   lastName    String
-  email       String       @unique
+  email       String        @unique
   password    String
   address     String?
   phone       String?
   role        String? // New field
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  orders      Order[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   newsletters Newsletter[]
   wishlist    Wishlist[]
+  OrderHeader OrderHeader[]
 }
 
 // Define the Product model
