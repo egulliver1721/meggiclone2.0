@@ -13,95 +13,91 @@ datasource db {
 
 // Define the User model
 model User {
-  id         Int          @id @default(autoincrement())
-  firstName  String
-  lastName   String
-  email      String       @unique
-  password   String
-  address    String?
-  phone      String?
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  Order      Order[]
-  Newsletter Newsletter[]
-  Wishlist   Wishlist[]
+  id          Int          @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String       @unique
+  password    String
+  address     String?
+  phone       String?
+  role        String? // New field
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  orders      Order[]
+  newsletters Newsletter[]
+  wishlist    Wishlist[]
 }
 
 // Define the Product model
 model Product {
-  id        Int         @id @default(autoincrement())
-  name      String
-  price     Float
-  image     String
-  stock     Int
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  OrderItem OrderItem[]
-  Wishlist  Wishlist[]
-  Item      Item[]
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String? // New field
+  price       Float
+  image       String
+  stock       Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+  wishlist    Wishlist[]
+  items       Item[]
 }
 
-//Define the Order model
-model Order {
-  id        Int         @id @default(autoincrement())
-  status    String      @default("pending")
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  // Define the relationship between the Order and User models
-  user      User        @relation(fields: [userId], references: [id])
-  userId    Int
-  // Define the relationship between the Order and Product models
-  items     OrderItem[]
+// Define the OrderHeader model
+model OrderHeader {
+  id         Int         @id @default(autoincrement())
+  status     String      @default("pending")
+  subtotal   Float? // New field
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int
+  orderItems OrderItem[]
 }
 
-// Define wishlist model
+// Define the Wishlist model
 model Wishlist {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // Define the relationship between the Wishlist and User models
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
-  // Define the relationship between the Wishlist and Product models
   product   Product  @relation(fields: [productId], references: [id])
   productId Int
   items     Item[]
 }
 
+// Define the Item model
 model Item {
   id         Int      @id @default(autoincrement())
   quantity   Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  // Define the relationship between the Item and Wishlist models
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
   wishlistId Int
-  // Define the relationship between the Item and Product models
   product    Product  @relation(fields: [productId], references: [id])
   productId  Int
 }
 
 // Define the OrderItem model
 model OrderItem {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  // Define the relationship between the OrderItem and Order models
-  order     Order    @relation(fields: [orderId], references: [id])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  order     OrderHeader @relation(fields: [orderId], references: [id])
   orderId   Int
-  // Define the relationship between the OrderItem and Product models
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product     @relation(fields: [productId], references: [id])
   productId Int
 }
 
+// Define the Newsletter model
 model Newsletter {
   id        Int      @id @default(autoincrement())
   subject   String
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // Define the relationship between the Newsletter and User models
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   email     String

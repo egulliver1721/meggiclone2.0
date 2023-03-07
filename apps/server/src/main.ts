@@ -261,34 +261,7 @@ async function main() {
     });
   });
 
-  // =========================== Routes =========================== //
-  app.get('/wishlist', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Get user from request object
-      const user = req.user as any;
-  
-      // Find user's wishlist in database
-      const wishlist = await prisma.wishlist.findUnique({
-        where: {
-          id: user.id,
-        },
-        include: {
-          items: true,
-        },
-      });
-  
-      if (!wishlist) {
-        return res.status(404).json({ message: 'Wishlist not found' });
-      }
-  
-      // Send response with wishlist data
-      res.status(200).json({ wishlist });
-    } catch (error) {
-      // Call next with error object to pass to error handling middleware
-      next(error);
-    }
-  });
-
+  // =========================== Products =========================== //
   // products 
   app.get('/products', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -297,34 +270,6 @@ async function main() {
       
       // Send response with products data
       res.status(200).json(products);
-    } catch (error) {
-      // Call next with error object to pass to error handling middleware
-      next(error);
-    }
-  });
-
-  // cart 
-  app.get('/cart', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Get user from request object
-      const user = req.user as any;
-
-      // Find user's cart in database
-      const cart = await prisma.cart.findUnique({
-        where: {
-          id: user.id,
-        },
-        include: {
-          items: true,
-        },
-      });
-
-      if (!cart) {
-        return res.status(404).json({ message: 'Cart not found' });
-      }
-
-      // Send response with cart data
-      res.status(200).json({ cart });
     } catch (error) {
       // Call next with error object to pass to error handling middleware
       next(error);
@@ -412,98 +357,6 @@ async function main() {
       });
 
       res.status(200).json({ user });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  // add item to wishlist
-  app.post('/wishlist/:productId', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { productId } = req.params;
-
-      // Get user from request object
-      const user = req.user as any;
-
-      // Find user's wishlist in database
-      const wishlist = await prisma.wishlist.findUnique({
-        where: {
-          id: user.id,
-        },
-        include: {
-          items: true,
-        },
-      });
-
-      if (!wishlist) {
-        return res.status(404).json({ message: 'Wishlist not found' });
-      }
-
-      // Check if item is already in wishlist
-      const itemExists = wishlist.items.find((item) => item.productId === Number(productId));
-
-      if (itemExists) {
-        return res.status(400).json({ message: 'Item already in wishlist' });
-      }
-
-      // Add item to wishlist
-      const newItem = await prisma.wishlistItem.create({
-        data: {
-          productId: Number(productId),
-          wishlistId: user.id,
-        },
-      });
-
-      res.status(200).json({ message: 'Item added to wishlist', item: newItem });
-    } catch (error) {
-      next(error);
-    }
-  });
-
-  // payment handler for apple pay 
-  app.post('/payment', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { paymentData } = req.body;
-
-      // Get user from request object
-      const user = req.user as any;
-
-      // Find user's cart in database
-      const cart = await prisma.cart.findUnique({
-        where: {
-          id: user.id,
-        },
-        include: {
-          items: true,
-        },
-      });
-
-      if (!cart) {
-        return res.status(404).json({ message: 'Cart not found' });
-      }
-
-      // Create order
-      const order = await prisma.order.create({
-        data: {
-          userId: user.id,
-          items: {
-            create: cart.items.map((item) => ({
-              productId: item.productId,
-              quantity: item.quantity,
-            })),
-          },
-        },
-      });
-
-      // Delete cart items
-      await prisma.cartItem.deleteMany({
-        where: {
-          cartId: user.id,
-        },
-      });
-
-      // Send response with order data
-      res.status(200).json({ order });
     } catch (error) {
       next(error);
     }

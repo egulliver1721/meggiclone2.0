@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../styles/App.scss';
-import heroImage from '../images/meggicover.jpg';
-import Header from '../components/header';
-import Navigation from '../components/Navigation';
 import Product from '../components/product';
 import rainbowThumbnail from '../images/rainbowThumbnail.png';
 import blueThumbnail from '../images/blueThumbnail.png';
 import pinkThumbnail from '../images/pinkThumbnail.png';
 import wildAnimalThumbnail from '../images/wildAnimalThumbnail.png';
 import Hero from '../components/hero';
+import { Outlet } from 'react-router-dom';
+import { atom, useAtom } from 'jotai';
 
 const tagData = [
   {
@@ -41,9 +40,12 @@ const tagData = [
   },
 ];
 
+// useAtom
+const cartItemsAtom = atom([]);
+
 const Home = () => {
-  const [tagPattern, setTagPattern] = useState();
-  const [cartItems, setCartItems] = useState([]);
+  const [tagPattern, setTagPattern] = useState('rainbowTag');
+  const [cartItems, setCartItems] = useAtom(cartItemsAtom);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -56,17 +58,15 @@ const Home = () => {
     }
   };
 
-  const onPatternClick = (e: any) => {
-    e.preventDefault();
-    setTagPattern((prevPattern) => e.target.getAttribute('data-image'));
+  const onPatternClick = (pattern: string) => {
+    setTagPattern(pattern);
   };
+
   return (
     <div className="App">
       <Hero />
-      {/* <Header heroImage={heroImage} /> 
-      <div className="heroContainer"><Header heroImage={heroImage} /></div>
+      <Outlet />
       <Product onPatternClick={onPatternClick} handleSubmit={handleSubmit} pattern={tagPattern} />
-      */}
     </div>
   );
 };

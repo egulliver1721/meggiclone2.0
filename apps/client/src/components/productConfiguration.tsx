@@ -1,6 +1,10 @@
-import React from 'react';
+interface ProductConfigurationProps {
+  pattern: string;
+  onPatternClick: (pattern: string) => void;
+  handleSubmit: (e: any) => void;
+}
 
-export default function ProductConfiguration(props) {
+export default function ProductConfiguration(props: ProductConfigurationProps) {
   return (
     <div className="productCongifuration">
       <div className="productPattern">
