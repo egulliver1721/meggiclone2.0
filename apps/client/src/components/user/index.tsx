@@ -54,7 +54,7 @@ const User = () => {
 
   const handleLogin = async () => {
     try {
-      const baseURL = 'http://localhost:8000';
+      const baseURL = 'http://localhost:8080';
       const response = await axios.post(`${baseURL}/login`, formValues);
       const { token } = response.data;
       localStorage.setItem('token', token);

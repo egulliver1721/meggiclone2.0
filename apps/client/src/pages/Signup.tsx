@@ -10,7 +10,7 @@ const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      const baseURL = 'http://localhost:8000'; // Add base URL
+      const baseURL = 'http://localhost:8080'; // Add base URL
       await axios.post(`${baseURL}/signup`, { email, password, firstName, lastName }); // Include base URL in request
       console.log('User created successfully');
     } catch (error) {
