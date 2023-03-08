@@ -14,7 +14,7 @@ interface FormValues {
 
 interface FormErrors {
   email?: string;
-  password?: string;
+  password?: string;A
   message?: string;
 }
 
