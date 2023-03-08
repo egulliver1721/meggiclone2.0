@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Cart from '../cart';
 import { atom, useAtom } from 'jotai';
 import User from '../user';
-
+import Wishlist from '../wishlist';
 const themeAtom = atom('light');
 
 const Navbar = () => {
@@ -30,6 +30,7 @@ const Navbar = () => {
   const itemsRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
+  const wishlistRef = useRef<HTMLDivElement>(null);
 
   const toggleUser = () => {
     setOpenUser(!openUser);
@@ -84,6 +85,21 @@ const Navbar = () => {
     };
   }, [userRef]);
 
+  // if click outside of menu, close menu
+  useEffect(() => {
+    const handleClickOutside = (e: any) => {
+      console.log('Clicked outside of user component');
+
+      if (wishlistRef.current && !wishlistRef.current.contains(e.target)) {
+        setOpenWishlist(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wishlistRef]);
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const tl = gsap.timeline();
     tl.to(itemsRef.current, { duration: 0.3, opacity: 0, scale: 1 });
@@ -136,8 +152,8 @@ const Navbar = () => {
       {/* Cart */}
       <div ref={cartRef}>{openCart && <Cart />}</div>
 
-      {/* <Wishlist /> */}
-      {openWishlist && <Wishlist />}
+      {/* <Index /> */}
+      <div ref={wishlistRef}>{openWishlist && <Wishlist />}</div>
 
       {/* <User /> */}
       <div ref={userRef}>{openUser && <User />}</div>

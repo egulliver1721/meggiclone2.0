@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc';
+// @ts-ignore
 import { PrismaClient } from '../node_modules/.prisma/client';
 import session from 'express-session';
 import passport from 'passport';
@@ -271,35 +272,6 @@ async function main() {
       // Send response with products data
       res.status(200).json(products);
     } catch (error) {
-      // Call next with error object to pass to error handling middleware
-      next(error);
-    }
-  });
-
-  // order history 
-  app.get('/order-history', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Get user from request object
-      const user = req.user as any;
-      
-      // Find user's order history in database
-      const orderHistory = await prisma.order.findMany({
-        where: {
-          userId: user.id,
-        },
-        include: {
-          items: true,
-        },
-      });
-
-      if (!orderHistory) {
-        return res.status(404).json({ message: 'Order history not found' });
-      }
-
-      // Send response with order history data
-      res.status(200).json({ orderHistory });
-    } catch (error) {
-      
       // Call next with error object to pass to error handling middleware
       next(error);
     }

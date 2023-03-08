@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import anime from 'animejs';
 
 interface HeaderProps {

@@ -1,5 +1,6 @@
 import { TRPCError, inferAsyncReturnType, initTRPC } from '@trpc/server';
 import { z } from 'zod';
+// @ts-ignore
 import { PrismaClient } from '../node_modules/.prisma/client';
 
 const prisma = new PrismaClient();

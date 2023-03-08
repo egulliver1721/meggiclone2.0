@@ -55,8 +55,8 @@ model OrderHeader {
   orderItems OrderItem[]
 }
 
-// Define the Wishlist model
-model Wishlist {
+// Define the Index model
+model Index {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
