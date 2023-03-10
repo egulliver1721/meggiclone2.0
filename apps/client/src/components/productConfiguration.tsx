@@ -17,7 +17,7 @@ export default function ProductConfiguration(props: ProductConfigurationProps) {
               name="pattern"
               id="rainbow"
               value={props.pattern}
-              onChange={props.onPatternClick}
+              onClick={() => props.onPatternClick('rainbowTag')}
             />
             <label htmlFor="rainbow">
               <span className={props.pattern === 'rainbowTag' ? 'activeInput' : ''}></span>
@@ -30,7 +30,7 @@ export default function ProductConfiguration(props: ProductConfigurationProps) {
               name="pattern"
               id="wildAnimal"
               value={props.pattern}
-              onChange={props.onPatternClick}
+              onClick={() => props.onPatternClick('wildAnimalTag')}
             />
             <label htmlFor="wildAnimal">
               <span className={props.pattern === 'wildAnimalTag' ? 'activeInput' : ''}></span>
@@ -43,7 +43,7 @@ export default function ProductConfiguration(props: ProductConfigurationProps) {
               name="pattern"
               id="pink"
               value={props.pattern}
-              onChange={props.onPatternClick}
+              onClick={() => props.onPatternClick('pinkTag')}
             />
             <label htmlFor="pink">
               <span className={props.pattern === 'pinkTag' ? 'activeInput' : ''}></span>
@@ -56,7 +56,7 @@ export default function ProductConfiguration(props: ProductConfigurationProps) {
               name="pattern"
               id="blue"
               value={props.pattern}
-              onChange={props.onPatternClick}
+              onClick={() => props.onPatternClick('blueTag')}
             />
             <label htmlFor="blue">
               <span className={props.pattern === 'blueTag' ? 'activeInput' : ''}></span>
