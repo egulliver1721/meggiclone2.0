@@ -6,51 +6,53 @@ import Footer from '../components/footer';
 import style from './root.module.scss';
 
 const Root = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [tagPattern, setTagPattern] = useState(null);
+  //   const [cartItems, setCartItems] = useState([]);
+  //   const [tagPattern, setTagPattern] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const exists = cartItems.some((item) => item.pattern === tagPattern);
-    if (!exists) {
-      const selectedTag = tagData.find((tag) => tag.pattern === tagPattern);
-      if (selectedTag) {
-        setCartItems([...cartItems, selectedTag]);
-      }
-    }
-  };
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     const exists = cartItems.some((item) => item.pattern === tagPattern);
+  //     if (!exists) {
+  //       const selectedTag = tagData.find((tag) => tag.pattern === tagPattern);
+  //       if (selectedTag) {
+  //         setCartItems([...cartItems, selectedTag]);
+  //       }
+  //     }
+  //   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  // console.log()
 
-  function handleIncrement(pattern) {
-    const updatedCartItems = cartItems.map((tag) => {
-      if (tag.pattern === pattern) {
-        return { ...tag, quantity: tag.quantity + 1 };
-      } else {
-        return tag;
-      }
-    });
-    setCartItems(updatedCartItems);
-  }
+  //   useEffect(() => {
+  //     console.log(cartItems);
+  //   }, [cartItems]);
 
-  const handleDecrement = (pattern) => {
-    const updatedCartItems = cartItems.map((tag) => {
-      if (tag.pattern === pattern) {
-        const newQuantity = Math.max(1, tag.quantity - 1);
-        return { ...tag, quantity: newQuantity };
-      } else {
-        return tag;
-      }
-    });
-    setCartItems(updatedCartItems);
-  };
+  // function handleIncrement(pattern) {
+  //   const updatedCartItems = cartItems.map((tag) => {
+  //     if (tag.pattern === pattern) {
+  //       return { ...tag, quantity: tag.quantity + 1 };
+  //     } else {
+  //       return tag;
+  //     }
+  //   });
+  //   setCartItems(updatedCartItems);
+  // }
 
-  const handleRemove = (pattern) => {
-    const removeCartItem = cartItems.filter((tag) => tag.pattern !== pattern);
-    setCartItems(removeCartItem);
-  };
+  // const handleDecrement = (pattern) => {
+  //   const updatedCartItems = cartItems.map((tag) => {
+  //     if (tag.pattern === pattern) {
+  //       const newQuantity = Math.max(1, tag.quantity - 1);
+  //       return { ...tag, quantity: newQuantity };
+  //     } else {
+  //       return tag;
+  //     }
+  //   });
+  //   setCartItems(updatedCartItems);
+  // };
+
+  // const handleRemove = (pattern) => {
+  //   const removeCartItem = cartItems.filter((tag) => tag.pattern !== pattern);
+  //   setCartItems(removeCartItem);
+  // };
 
   return (
     <div className={style.root}>
