@@ -78,10 +78,16 @@ const Cart = (): JSX.Element => {
             <ul>
               {itemsInCart.map((item, index) => (
                 <li key={index}>
-                  {item.name} - ${item.price} x {item.quantity}{' '}
-                  <button onClick={() => handleIncrementQuantity(index)}>+</button>{' '}
-                  <button onClick={() => handleDecrementQuantity(index)}>-</button>{' '}
-                  <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
+                  <div className="bold">{item.itemName}</div>
+                  <div>
+                    ${item.price} x {item.quantity}{' '}
+                  </div>
+                  <div>
+                    {' '}
+                    <button onClick={() => handleIncrementQuantity(index)}>+</button>{' '}
+                    <button onClick={() => handleDecrementQuantity(index)}>-</button>{' '}
+                    <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
+                  </div>
                 </li>
               ))}
             </ul>

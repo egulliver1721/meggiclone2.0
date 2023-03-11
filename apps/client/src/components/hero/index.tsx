@@ -36,10 +36,10 @@ const Hero = () => {
   return (
     <div ref={heroRef} className={style.hero}>
       <h1 ref={titleRef} className={style.title}>
-        Handmade Tags
+        Simplifying Motherhood
       </h1>
       <p ref={subtitleRef} className={style.subtitle}>
-        Handmade tags for your handmade products
+        Tag your bag and pack with ease.
       </p>
       <button ref={buttonRef} className={style.button}>
         Shop Now

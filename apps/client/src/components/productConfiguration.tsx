@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface ProductConfigurationProps {
   pattern: string;
   onPatternClick: (pattern: string) => void;

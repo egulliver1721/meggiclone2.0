@@ -1,3 +1,4 @@
+import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { createRoutesFromElements, createBrowserRouter, Route } from 'react-router-dom';
 import { Home, Error, Checkout, Root, Contact, Terms, Privacy, About, Signup } from './pages';
