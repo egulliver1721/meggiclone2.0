@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { atom, useAtom } from 'jotai';
+import { cartItemsAtom } from '../../pages/Home';
 import axios from 'axios';
 import stripePromise from '../../utils/stripe';
 import style from './cart.module.scss';
+import React from 'react';
 
 interface Item {
-  name: string;
-  price: number;
+  pattern: string;
+  itemName: string;
+  thumbnail: string;
+  price: string;
   quantity: number;
 }
 
-const cartAtom = atom<Item[]>([]);
-
 const Cart = (): JSX.Element => {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-  const [itemsInCart, setItemsInCart] = useAtom(cartAtom);
+  const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom);
 
-  //update cart items in jotai state
+  // update cart items in jotai state
   const updateCartItems = (callback: (prevItems: Item[]) => Item[]) => {
     setItemsInCart((prevItems: Item[]) => {
       const updatedItems = callback(prevItems);

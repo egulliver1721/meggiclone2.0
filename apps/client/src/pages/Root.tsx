@@ -4,6 +4,7 @@ import Banner from '../components/banner';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import style from './root.module.scss';
+import React from 'react';
 
 const Root = () => {
   //   const [cartItems, setCartItems] = useState([]);

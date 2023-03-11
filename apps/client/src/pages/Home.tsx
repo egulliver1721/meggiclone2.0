@@ -8,6 +8,7 @@ import wildAnimalThumbnail from '../images/wildAnimalThumbnail.png';
 import Hero from '../components/hero';
 import { Outlet } from 'react-router-dom';
 import { atom, useAtom } from 'jotai';
+import React from 'react';
 
 const tagData = [
   {
@@ -40,11 +41,20 @@ const tagData = [
   },
 ];
 
+interface CartItem {
+  pattern: string;
+  itemName: string;
+  thumbnail: string;
+  price: string;
+  quantity: number;
+}
+
 // useAtom
-const cartItemsAtom = atom([]);
+const tagPatternAtom = atom('rainbowTag');
+export const cartItemsAtom = atom<CartItem[]>([]);
 
 const Home = () => {
-  const [tagPattern, setTagPattern] = useState('rainbowTag');
+  const [tagPattern, setTagPattern] = useAtom(tagPatternAtom);
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
 
   const handleSubmit = (e: any) => {
@@ -53,7 +63,16 @@ const Home = () => {
     if (!exists) {
       const selectedTag = tagData.find((tag) => tag.pattern === tagPattern);
       if (selectedTag) {
-        setCartItems([...cartItems, selectedTag]);
+        setCartItems([
+          ...cartItems,
+          {
+            pattern: selectedTag.pattern,
+            itemName: selectedTag.itemName,
+            thumbnail: selectedTag.thumbnail,
+            price: selectedTag.price,
+            quantity: 1,
+          },
+        ]);
       }
     }
   };
