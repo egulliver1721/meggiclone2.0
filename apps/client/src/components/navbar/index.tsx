@@ -8,6 +8,7 @@ import { atom, useAtom } from 'jotai';
 import User from '../user';
 import Wishlist from '../wishlist';
 const themeAtom = atom('light');
+import getNumItemsInCart from '../cart';
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -124,7 +125,10 @@ const Navbar = () => {
         </div>
         <div className={style.containerright}>
           <FiHeart onClick={toggleWishlist} />
-          <FiShoppingBag onClick={toggleCart} />
+          <div>
+            <FiShoppingBag onClick={toggleCart} />
+            {Number(getNumItemsInCart()) > 0 && <span className={style.cartNumItems}>{getNumItemsInCart()}</span>}
+          </div>
           {
             // ternary operator
             theme === 'light' ? <FiMoon onClick={handleTheme} /> : <FiSun onClick={handleTheme} />

@@ -7,22 +7,26 @@ import style from './cart.module.scss';
 import React from 'react';
 
 interface Item {
+  id: number;
   pattern: string;
   itemName: string;
   thumbnail: string;
-  price: string;
+  price: number;
   quantity: number;
 }
 
+const CART_ITEMS_KEY = 'cartItems';
+
 const Cart = (): JSX.Element => {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-  const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom);
+  const initialItems = JSON.parse(localStorage.getItem(CART_ITEMS_KEY) || '[]');
+  const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom, initialItems);
 
   // update cart items in jotai state
   const updateCartItems = (callback: (prevItems: Item[]) => Item[]) => {
     setItemsInCart((prevItems: Item[]) => {
       const updatedItems = callback(prevItems);
-      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+      localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(updatedItems));
       return updatedItems;
     });
   };

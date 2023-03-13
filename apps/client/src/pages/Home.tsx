@@ -41,10 +41,11 @@ const tagData = [
 ];
 
 interface CartItem {
+  id: number;
   pattern: string;
   itemName: string;
   thumbnail: string;
-  price: string;
+  price: number;
   quantity: number;
 }
 
@@ -67,6 +68,7 @@ const Home = () => {
         setCartItems([
           ...cartItems,
           {
+            id: cartItems.length + 1,
             pattern: selectedTag.pattern,
             itemName: selectedTag.itemName,
             thumbnail: selectedTag.thumbnail,

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { createRoutesFromElements, createBrowserRouter, Route } from 'react-router-dom';
 import { Home, Error, Checkout, Root, Contact, Terms, Privacy, About, Signup } from './pages';
+import { useAtom } from 'jotai';
+import { cartItemsAtom } from './pages/Home';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +21,19 @@ const router = createBrowserRouter(
   ),
 );
 
+const CART_ITEMS_KEY = 'cartItems';
+
 const App = () => {
+  const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom);
+
+  console.log('itemsInCart', itemsInCart);
+
+  useEffect(() => {
+    const storedItems = localStorage.getItem(CART_ITEMS_KEY);
+    if (storedItems) {
+      setItemsInCart(JSON.parse(storedItems));
+    }
+  }, [setItemsInCart]);
   return <RouterProvider router={router} />;
 };
 
