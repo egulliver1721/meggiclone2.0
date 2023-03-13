@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { atom, useAtom } from 'jotai';
+import { useAtom } from 'jotai';
 import { cartItemsAtom } from '../../pages/Home';
 import axios from 'axios';
 import stripePromise from '../../utils/stripe';

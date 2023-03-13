@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../styles/App.scss';
 import Product from '../components/product';
 import rainbowThumbnail from '../images/rainbowThumbnail.png';
@@ -52,6 +51,8 @@ interface CartItem {
 // useAtom
 const tagPatternAtom = atom('rainbowTag');
 export const cartItemsAtom = atom<CartItem[]>([]);
+
+console.log('cartItemsAtom', cartItemsAtom);
 
 const Home = () => {
   const [tagPattern, setTagPattern] = useAtom(tagPatternAtom);
