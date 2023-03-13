@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"swc src -w --out-dir dist\" \"nodemon --watch \"dist/**/*\" -e js ./dist/main.js\"",
+    "dev": "concurrently \"swc src -w --out-dir dist\" \"nodemon --watch \"dist/**/*\" -e js ./dist/main.js\" \"pnpm studio\"",
     "build": "swc src -d dist",
     "start": "NODE_ENV=production node dist/main.js",
     "lint": "eslint src --ext .ts",
-    "test": "jest"
+    "test": "jest",
+    "studio": "prisma studio"
   },
   "dependencies": {
     "express": "^4.17.1"
