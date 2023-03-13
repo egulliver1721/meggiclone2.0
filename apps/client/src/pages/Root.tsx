@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import Banner from '../components/banner';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 import style from './root.module.scss';
@@ -12,7 +11,6 @@ const Root = () => {
       <CookiesNotification />
       <div className={style.root}>
         <header>
-          <Banner text="Free Shipping Across Australia" />
           <Navbar />
         </header>
         <section className={style.container}>

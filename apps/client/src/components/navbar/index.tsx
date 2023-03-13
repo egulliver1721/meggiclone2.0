@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import style from './navbar.module.scss';
 import gsap from 'gsap';
 import { FiHeart, FiMenu, FiMoon, FiShoppingBag, FiSun, FiUser } from 'react-icons/fi';
@@ -11,6 +11,37 @@ const themeAtom = atom('light');
 import getNumItemsInCart from '../cart';
 
 const Navbar = () => {
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const navbarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
+
+  useEffect(() => {
+    const navbar = navbarRef.current;
+    let tween: gsap.core.Tween | void; // Declare the tween variable with type Tween | void
+
+    if (navbar) {
+      tween = gsap.to(navbar, { duration: 1, y: visible ? 0 : -navbar.offsetHeight, ease: 'power2.out' });
+    }
+
+    return () => {
+      if (tween) {
+        tween.kill(); // Kill the tween on unmount
+      }
+    };
+  }, [visible]);
+
   const [openMenu, setOpenMenu] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [openUser, setOpenUser] = useState(false);
@@ -111,7 +142,7 @@ const Navbar = () => {
 
   return (
     // Navbar
-    <nav className={style.navbar}>
+    <nav className={`${style.navbar} ${visible ? '' : style.hidden}`}>
       <div className={style.container}>
         <div className={style.containerleft}>
           <span onClick={toggleMenu} className={style.menuIcon}>
