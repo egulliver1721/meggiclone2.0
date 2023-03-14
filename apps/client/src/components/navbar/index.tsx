@@ -47,6 +47,19 @@ const Navbar = () => {
   }, [prevScrollPos]);
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // if navbar is not visible, show it on mouse move towards the top of the screen (y < 50)
+      if (!visible && e.clientY < 50) {
+        setVisible(true);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [visible]);
+
+  useEffect(() => {
     const navbar = navbarRef.current;
     let tween: gsap.core.Tween | void; // Declare the tween variable with type Tween | void
 

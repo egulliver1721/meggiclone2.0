@@ -4,11 +4,14 @@ import Footer from '../components/footer';
 import style from './root.module.scss';
 import React from 'react';
 import CookiesNotification from '../components/cookies';
+import ScrollToTop from '../components/totop';
 
 const Root = () => {
   return (
     <>
       <CookiesNotification />
+      <ScrollToTop />
+
       <div className={style.root}>
         <header>
           <Navbar />
