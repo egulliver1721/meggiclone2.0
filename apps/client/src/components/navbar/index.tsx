@@ -8,14 +8,30 @@ import { atom, useAtom } from 'jotai';
 import User from '../user';
 import Wishlist from '../wishlist';
 const themeAtom = atom('light');
-import getNumItemsInCart from '../cart';
+
+const CART_ITEMS_KEY = 'cartItems';
+
+export const getNumItemsFromCart = () => {
+  const cartItems = JSON.parse(localStorage.getItem(CART_ITEMS_KEY) || '[]');
+  let numItems = 0;
+
+  if (cartItems && cartItems.length) {
+    for (const item of cartItems) {
+      numItems += item.quantity;
+    }
+  }
+
+  return numItems;
+};
+
+console.log(getNumItemsFromCart());
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const navbarRef = useRef<HTMLDivElement>(null);
 
-  const numItemsInCart = getNumItemsInCart();
+  const numItemsInCart = getNumItemsFromCart();
   console.log(numItemsInCart);
 
   useEffect(() => {
@@ -159,9 +175,9 @@ const Navbar = () => {
         </div>
         <div className={style.containerright}>
           <FiHeart onClick={toggleWishlist} />
-          <div>
+          <div className={style.cartIcon}>
             <FiShoppingBag onClick={toggleCart} />
-            {numItemsInCart > 0 && <div className={style.cartNumItems}>{numItemsInCart}</div>}
+            {getNumItemsFromCart() > 0 && <div className={style.cartNumItems}>{getNumItemsFromCart()}</div>}
           </div>
           {theme === 'light' ? <FiMoon onClick={handleTheme} /> : <FiSun onClick={handleTheme} />}
           <FiUser onClick={toggleUser} />

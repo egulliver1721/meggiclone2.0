@@ -17,25 +17,10 @@ interface Item {
 
 const CART_ITEMS_KEY = 'cartItems';
 
-export const getNumItemsFromCart = () => {
-  const cartItems = JSON.parse(localStorage.getItem(CART_ITEMS_KEY) || '[]');
-  let numItems = 0;
-
-  if (cartItems && cartItems.length) {
-    for (const item of cartItems) {
-      numItems += item.quantity;
-    }
-  }
-
-  return numItems;
-};
-
 const Cart = (): JSX.Element => {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const initialItems = JSON.parse(localStorage.getItem(CART_ITEMS_KEY) || '[]');
   const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom, initialItems);
-
-  console.log(getNumItemsFromCart());
 
   // update cart items in jotai state
   const updateCartItems = (callback: (prevItems: Item[]) => Item[]) => {
