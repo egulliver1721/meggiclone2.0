@@ -15,6 +15,9 @@ const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const navbarRef = useRef<HTMLDivElement>(null);
 
+  const numItemsInCart = getNumItemsInCart();
+  console.log(numItemsInCart);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
@@ -158,12 +161,9 @@ const Navbar = () => {
           <FiHeart onClick={toggleWishlist} />
           <div>
             <FiShoppingBag onClick={toggleCart} />
-            {Number(getNumItemsInCart()) > 0 && <span className={style.cartNumItems}>{getNumItemsInCart()}</span>}
+            {numItemsInCart > 0 && <div className={style.cartNumItems}>{numItemsInCart}</div>}
           </div>
-          {
-            // ternary operator
-            theme === 'light' ? <FiMoon onClick={handleTheme} /> : <FiSun onClick={handleTheme} />
-          }
+          {theme === 'light' ? <FiMoon onClick={handleTheme} /> : <FiSun onClick={handleTheme} />}
           <FiUser onClick={toggleUser} />
         </div>
       </div>
