@@ -1,9 +1,11 @@
 .navbar {
     background-color: #fff;
-    display: block;
-    padding: 1rem 2rem;
     position: fixed;
-    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1rem;
+    display: block;
     z-index: 999;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
