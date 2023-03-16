@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
+import React from 'react';
 
 export const loggedInAtom = atom(false);
 
@@ -14,7 +15,7 @@ interface FormValues {
 
 interface FormErrors {
   email?: string;
-  password?: string;A
+  password?: string;
   message?: string;
 }
 
