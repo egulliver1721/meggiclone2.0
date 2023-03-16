@@ -1,6 +1,6 @@
 export default {
     name: 'products',
-    type: 'documents',
+    type: 'document',
     title: 'Products',
     fields: [
       {
@@ -21,10 +21,29 @@ export default {
         description: '' 
       },
       {
-        name: 'pattern',
-        type: 'string',
-        title: 'Pattern',
-        description: ''
+        name: 'patternImages',
+        type: 'array',
+        title: 'Pattern Images',
+        of: [
+          {
+            type: 'object',
+            fields: [
+              {
+                name: 'pattern',
+                type: 'string',
+                title: 'Pattern',
+              },
+              {
+                name: 'image',
+                type: 'image',
+                title: 'Image',
+                options: {
+                  hotspot: true,
+                },
+              },
+            ],
+          },
+        ],
       },
       {
         name: 'currency',
