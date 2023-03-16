@@ -1,6 +1,6 @@
 import groq from 'groq'
 
-export const productsQuery = groq`
+const productsQuery = groq`
 *[_type=="products"]{
     name,
     description,
@@ -9,3 +9,5 @@ export const productsQuery = groq`
     "image": image.asset->url,
     currency
   }`;
+
+export default productsQuery;
