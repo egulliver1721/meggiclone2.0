@@ -10,3 +10,4 @@ export { default as Terms } from './Terms';
 export { default as Privacy } from './Privacy';
 export { default as About } from './About';
 export { default as Signup } from './Signup';
+export { default as Summary } from './Summary'

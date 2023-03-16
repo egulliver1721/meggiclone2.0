@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { createRoutesFromElements, createBrowserRouter, Route } from 'react-router-dom';
-import { Home, Error, Checkout, Root, Contact, Terms, Privacy, About, Signup } from './pages';
+import { Home, Error, Checkout, Root, Contact, Terms, Privacy, About, Signup, Summary } from './pages';
 import { useAtom } from 'jotai';
 import { cartItemsAtom } from './pages/Home';
 
@@ -10,6 +10,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index={true} element={<Home />} />
       <Route path="checkout" element={<Checkout />} />
+      <Route path="Summary" element={<Summary />} />
       <Route path="*" element={<Error />} />
       <Route path="Contact" element={<Contact />} />
       <Route path="Terms" element={<Terms />} />

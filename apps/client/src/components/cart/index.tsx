@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { cartItemsAtom } from '../../pages/Home';
-import axios from 'axios';
-import stripePromise from '../../utils/stripe';
 import style from './cart.module.scss';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 interface Item {
@@ -18,7 +16,6 @@ interface Item {
 const CART_ITEMS_KEY = 'cartItems';
 
 const Cart = (): JSX.Element => {
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const initialItems = JSON.parse(localStorage.getItem(CART_ITEMS_KEY) || '[]');
   const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom, initialItems);
 
@@ -29,26 +26,6 @@ const Cart = (): JSX.Element => {
       localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(updatedItems));
       return updatedItems;
     });
-  };
-
-  // checkout handler for stripe
-  const handleCheckout = async () => {
-    setIsCheckoutLoading(true);
-    const stripe = await stripePromise;
-    if (!stripe) {
-      console.error('Stripe is not available');
-      setIsCheckoutLoading(false);
-      return;
-    }
-    // to do learn axios
-    const response = await axios.post('/create-checkout-session', {
-      cartItems: itemsInCart,
-    });
-    const session = await response.data;
-    await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-    setIsCheckoutLoading(false);
   };
 
   const handleIncrementQuantity = (itemIndex: number) => {
@@ -95,9 +72,9 @@ const Cart = (): JSX.Element => {
                 </li>
               ))}
             </ul>
-            <button className={style.cartCheckoutBtn} onClick={handleCheckout} disabled={isCheckoutLoading}>
-              {isCheckoutLoading ? 'Loading...' : 'Checkout'}
-            </button>
+            <Link to="/summary">
+              <button className={style.cartCheckoutBtn}>Summary</button>
+            </Link>
           </>
         ) : (
           <p>Your cart is empty.</p>
