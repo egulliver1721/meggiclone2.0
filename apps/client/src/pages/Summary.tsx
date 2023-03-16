@@ -4,6 +4,8 @@ import { useAtom } from 'jotai';
 
 const CART_ITEMS_KEY = 'cartItems';
 
+const TAX_RATE = 0.1;
+const SHIPPING_RATE = 5;
 interface Item {
   id: number;
   pattern: string;
@@ -30,13 +32,18 @@ const CartSummary = (): JSX.Element => {
     updateCartItems((prevItems: Item[]) => prevItems.filter((item, index) => index !== itemIndex));
   };
 
+  const subtotal = itemsInCart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const tax = subtotal * TAX_RATE;
+  const shipping = SHIPPING_RATE;
+  const total = subtotal + tax + shipping;
+
   return (
     <div>
       {itemsInCart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <>
-          <h2>Cart Summary</h2>
+          <h2>Order Summary</h2>
           <ul>
             {itemsInCart.map((item, index) => (
               <li key={index}>
@@ -50,6 +57,12 @@ const CartSummary = (): JSX.Element => {
               </li>
             ))}
           </ul>
+          <div>
+            <div>Subtotal: ${subtotal.toFixed(2)}</div>
+            <div>Tax: ${tax.toFixed(2)}</div>
+            <div>Shipping: ${shipping.toFixed(2)}</div>
+            <div>Total: ${total.toFixed(2)}</div>
+          </div>
         </>
       )}
     </div>
