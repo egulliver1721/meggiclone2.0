@@ -36,6 +36,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "groq": "^3.7.0",
     "gsap": "^3.11.4",
     "jotai": "^2.0.2",
     "node-sass": "^8.0.0",
