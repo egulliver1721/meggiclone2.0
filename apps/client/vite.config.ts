@@ -4,6 +4,12 @@ import react from '@vitejs/plugin-react-swc';
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
   plugins: [react()],
+  test: {
+    coverage: {
+      reporter: ["text", "html"],
+      exclude: ["**/*.test.tsx", "**/*.test.ts", "**/*.test.js", "**/*.test.jsx"],
+    },
+  },
   server: {
     watch: {
       usePolling: true,

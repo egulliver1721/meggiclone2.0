@@ -2,7 +2,6 @@
   "name": "meggiclone2.0",
   "version": "1.0.0",
   "description": "",
-  "packageManager": "pnpm",
   "engines": {
     "node": ">=12.0.0",
     "pnpm": ">=5.0.0"
@@ -10,7 +9,8 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build"
+    "build": "turbo build",
+    "test": "turbo test"
   },
   "keywords": [],
   "author": "",

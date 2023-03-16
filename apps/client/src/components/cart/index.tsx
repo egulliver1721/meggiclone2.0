@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { cartItemsAtom } from '../../pages/Home';
 import style from './cart.module.scss';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 interface Item {
   id: number;
@@ -20,36 +20,48 @@ const Cart = (): JSX.Element => {
   const [itemsInCart, setItemsInCart] = useAtom(cartItemsAtom, initialItems);
 
   // update cart items in jotai state
-  const updateCartItems = (callback: (prevItems: Item[]) => Item[]) => {
-    setItemsInCart((prevItems: Item[]) => {
-      const updatedItems = callback(prevItems);
-      localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(updatedItems));
-      return updatedItems;
-    });
-  };
+  const updateCartItems = useCallback(
+    (callback: (prevItems: Item[]) => Item[]) => {
+      setItemsInCart((prevItems: Item[]) => {
+        const updatedItems = callback(prevItems);
+        localStorage.setItem(CART_ITEMS_KEY, JSON.stringify(updatedItems));
+        return updatedItems;
+      });
+    },
+    [setItemsInCart],
+  );
 
-  const handleIncrementQuantity = (itemIndex: number) => {
-    updateCartItems((prevItems: Item[]) =>
-      prevItems.map((item, index) => (index === itemIndex ? { ...item, quantity: item.quantity + 1 } : item)),
-    );
-  };
+  const handleIncrementQuantity = useCallback(
+    (itemIndex: number) => {
+      updateCartItems((prevItems: Item[]) =>
+        prevItems.map((item, index) => (index === itemIndex ? { ...item, quantity: item.quantity + 1 } : item)),
+      );
+    },
+    [updateCartItems],
+  );
 
-  const handleDecrementQuantity = (itemIndex: number) => {
-    updateCartItems((prevItems: Item[]) =>
-      prevItems.map((item, index) =>
-        index === itemIndex
-          ? {
-              ...item,
-              quantity: item.quantity > 1 ? item.quantity - 1 : 1,
-            }
-          : item,
-      ),
-    );
-  };
+  const handleDecrementQuantity = useCallback(
+    (itemIndex: number) => {
+      updateCartItems((prevItems: Item[]) =>
+        prevItems.map((item, index) =>
+          index === itemIndex
+            ? {
+                ...item,
+                quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+              }
+            : item,
+        ),
+      );
+    },
+    [updateCartItems],
+  );
 
-  const handleRemoveFromCart = (itemIndex: number) => {
-    updateCartItems((prevItems: Item[]) => prevItems.filter((item, index) => index !== itemIndex));
-  };
+  const handleRemoveFromCart = useCallback(
+    (itemIndex: number) => {
+      updateCartItems((prevItems: Item[]) => prevItems.filter((item, index) => index !== itemIndex));
+    },
+    [updateCartItems],
+  );
 
   return (
     <div className={style.cart}>
