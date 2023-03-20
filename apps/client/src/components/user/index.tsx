@@ -1,5 +1,6 @@
 import { atom, useAtom } from 'jotai';
 import style from './user.module.scss';
+import { FiMail, FiLock, FiEye } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -96,21 +97,55 @@ const User = () => {
           <button onClick={handleLogout}>Logout</button>
         ) : (
           <>
-            <h2>Login</h2>
-            <div>
-              <label htmlFor="email">Email:</label>
-              <input type="email" name="email" value={formValues.email} onChange={handleInputChange} />
-              {errors.email && <span className="error">{errors.email}</span>}
+            <h2 className={style.welcome}>Welcome</h2>
+            <div className={style.loginInput}>
+              <div className={style.email}>
+                <label htmlFor="email" className={style.emailIcon}>
+                  <FiMail />
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formValues.email}
+                  placeholder="Email"
+                  onChange={handleInputChange}
+                  className={style.input}
+                />
+                {errors.email && <span className="error">{errors.email}</span>}
+              </div>
+              <div className={style.password}>
+                <label htmlFor="password" className={style.passwordIcon}>
+                  {' '}
+                  <FiLock />{' '}
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formValues.password}
+                  placeholder="Password"
+                  onChange={handleInputChange}
+                  className={style.input}
+                />
+                {errors.password && <span className="error">{errors.password}</span>}
+                <span className={style.eyeIcon}>
+                  <FiEye />
+                </span>
+              </div>
             </div>
-            <div>
-              <label htmlFor="password">Password:</label>
-              <input type="password" name="password" value={formValues.password} onChange={handleInputChange} />
-              {errors.password && <span className="error">{errors.password}</span>}
+            <div className={style.forgotPassword}>
+              <Link to="/ForgotPassword">Forgot password?</Link>
             </div>
-            <button onClick={handleLogin}>Login</button>
+            <div className={style.loginBtn}>
+              <button onClick={handleLogin}>LOGIN</button>
+            </div>
+
             {errors.message && <span className="error">{errors.message}</span>}
-            <p>Don't have an account?</p>
-            <Link to="/Signup">Signup</Link>
+            <div className={style.signup}>
+              <p>Don't have an account?</p>
+              <Link to="/Signup" className={style.signupLink}>
+                Signup
+              </Link>{' '}
+            </div>
           </>
         )}
       </div>

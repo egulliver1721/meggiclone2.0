@@ -1,5 +1,5 @@
 // define variables
-$white : #fff;
+$white: #fff;
 $gray-lighter: #f7f7f7;
 $primary-color: #ff6b08;
 $black: #000;
@@ -17,11 +17,103 @@ $gray: #ccc;
     right: 20px;
     top: 80px;
     z-index: 2;
-    width: 300px;
+    width: 400px;
   
     .container {
       flex: 1;
       overflow-y: auto;
-    }
 
+      .welcome {
+        text-align: center;
+        padding-bottom: 35px;
+      }
+
+      .loginInput {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+
+       .email, {
+        color: grey;
+        border-bottom: 1px solid grey;
+        width: 250px;
+       margin-bottom: 20px;
+       }
+
+       .password {
+        color: grey;
+        border-bottom: 1px solid grey;
+        width: 250px;
+         margin-bottom: 8px;
+       }
+    
+       .emailIcon {
+       padding-right: 16px;
+       padding-left: 5px;
+      }
+
+      .passwordIcon {
+       padding-right: 12px;
+       padding-left: 5px;
+      }
+
+      .input {
+        border: none;
+        margin-bottom: 5px;
+        &:focus {
+        border-color: transparent;
+        outline: none;
+        }
+      } 
+
+      .eyeIcon{
+        float: right;
+        padding-right: 5px;
+      }
+   }  
+   
+   .forgotPassword{
+    display: block;
+    margin: 0 auto;
+    width: 250px;
+    text-align: right;
+    font-size: 0.75rem;
+   }
+
+ .loginBtn {
+  margin-top: 25px;
+  text-align: center;
+
+    button {
+      background-color: black;
+      color: white;
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 0.75rem 6rem;
+      font-size: 0.75rem;
+      transition: all 150ms ease-in-out;
+        &:hover {
+        background-color: white;
+        border: 2px solid black;
+        color: black;
+        cursor: pointer;
+      }
+    }
+   }
+
+   .signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+  
+    .signupLink {
+      padding-left: 5px;
+    }
+   }
+  } 
 }
+
