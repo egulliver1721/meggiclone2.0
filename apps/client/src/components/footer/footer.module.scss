@@ -1,9 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;700&family=Varela+Round&display=swap');
+
+
+$main-font: 'League Spartan', sans-serif;
+$second-font: 'Varela Round', sans-serif;
+
+
+
 footer {
     background-color: #2f2f2f;
     color: #fff;
     z-index: 9999;
-    width: 100vw;  
     overflow: hidden;
+  
 
     .grid {
         display: grid;
@@ -15,6 +24,7 @@ footer {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
         
             .link {
                 color: #fff;
@@ -29,6 +39,18 @@ footer {
             .link:active {
                 text-decoration: none;
             }
+
+            .logo {
+                font-family: $main-font;
+                font-weight: 700;
+                font-size: 2rem;
+            }
+          
+            .socialIcons {
+                padding: 5px 5px 0 5px;
+                font-size: 1.5rem;
+            }
+            
         }
     }
 }
