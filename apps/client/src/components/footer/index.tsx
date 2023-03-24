@@ -18,12 +18,15 @@ const Footer = () => {
           </div>
         </div>
         <div className={style.griditem}>
-          <Link className={style.link} to="/Terms">
-            Terms and Conditions
-          </Link>
-          <Link className={style.link} to="/Privacy">
-            Privacy Policy
-          </Link>
+          <div className={style.center}>
+            {' '}
+            <Link className={style.link} to="/Terms">
+              Terms and Conditions
+            </Link>
+            <Link className={style.link} to="/Privacy">
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
